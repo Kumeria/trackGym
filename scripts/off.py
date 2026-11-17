@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Look up a barcode on Open Food Facts and cache it in foods/foods.json.
 
-  off.py BARCODE [--id ID] [--state crudo|cotto|n/a] [--save] [--refresh]
+  off.py BARCODE [--id ID] [--state crudo|cotto|n/a] [--save] [--refresh] [--note T]
 
 Without --save it only prints what it found (nothing written).
 If the barcode is already in the catalog it is served from cache (no network)
@@ -101,6 +101,7 @@ def main(argv=None) -> int:
     p.add_argument("--state", choices=track.STATES, default="n/a")
     p.add_argument("--save", action="store_true")
     p.add_argument("--refresh", action="store_true")
+    p.add_argument("--note", help="nota libera (es. prodotto rappresentativo, non la marca effettiva)")
     a = p.parse_args(argv)
     if not a.barcode.isdigit():
         print("ERRORE: il barcode deve contenere solo cifre.", file=sys.stderr)
@@ -148,8 +149,9 @@ def main(argv=None) -> int:
             return 1
         foods[fid] = {"name": full, "state": a.state, "source": f"off:{a.barcode}",
                       "per100g": per100, "aliases": [], "added": track.today().isoformat()}
-        if warnings:
-            foods[fid]["note"] = "; ".join(warnings)
+        notes = ([a.note] if a.note else []) + warnings
+        if notes:
+            foods[fid]["note"] = "; ".join(notes)
         track.save_foods(foods)
         print(f"Salvato '{fid}' nel catalogo.")
     else:

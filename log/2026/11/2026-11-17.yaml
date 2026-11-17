@@ -27,3 +27,122 @@ meals:
       sugar: 1.7
       sodium_mg: 0
     source: off:8588006485622
+  - food_id: latte_ps
+    name: Latte PARZIALMENTE SCREMATO (Granarolo)
+    state: n/a
+    grams: 250
+    values:
+      kcal: 118
+      protein: 8.0
+      carbs: 12.5
+      fat: 4.0
+      fiber: null
+      sugar: 12.5
+      sodium_mg: 98
+    source: off:8002670168631
+  pranzo:
+  - food_id: pane_rosetta
+    name: Rosetta (Lidl)
+    state: n/a
+    grams: 100
+    values:
+      kcal: 284
+      protein: 9.7
+      carbs: 54.7
+      fat: 2.1
+      fiber: null
+      sugar: 3.2
+      sodium_mg: 516
+    source: off:4750621000000004000000
+  - food_id: pollo_petto_crudo
+    name: Fettine sottili di petto di pollo
+    state: crudo
+    grams: 200
+    values:
+      kcal: 208
+      protein: 46.0
+      carbs: 1.0
+      fat: 2.6
+      fiber: null
+      sugar: 1.0
+      sodium_mg: 80
+    source: off:2323156006206
+  - food_id: pasta_semola_crudo
+    name: Spaghetti n.5 (Barilla)
+    state: crudo
+    grams: 150
+    values:
+      kcal: 538
+      protein: 19.5
+      carbs: 106.5
+      fat: 3.0
+      fiber: 4.5
+      sugar: 5.2
+      sodium_mg: 6
+    source: off:8076809540483
+  - food_id: olio_evo
+    name: Olio extra vergine di oliva (Coop)
+    state: n/a
+    grams: 10
+    values:
+      kcal: 82
+      protein: 0.0
+      carbs: 0.0
+      fat: 9.2
+      fiber: null
+      sugar: 0.0
+      sodium_mg: 0
+    source: off:8001120641014
+  snack:
+  - food_id: pane_rosetta
+    name: Rosetta (Lidl)
+    state: n/a
+    grams: 100
+    values:
+      kcal: 284
+      protein: 9.7
+      carbs: 54.7
+      fat: 2.1
+      fiber: null
+      sugar: 3.2
+      sodium_mg: 516
+    source: off:4750621000000004000000
+  - food_id: crema_arachidi_100
+    name: Crema 100% Arachidi (Conad)
+    state: n/a
+    grams: 15
+    values:
+      kcal: 90
+      protein: 4.2
+      carbs: 2.5
+      fat: 6.9
+      fiber: 0.5
+      sugar: 0.7
+      sodium_mg: 1
+    source: off:8003170093157
+  - food_id: miele_millefiori
+    name: Miele millefiori (Dolciando)
+    state: n/a
+    grams: 10
+    values:
+      kcal: 31
+      protein: 0.0
+      carbs: 7.8
+      fat: 0.0
+      fiber: 0.0
+      sugar: 7.8
+      sodium_mg: 0
+    source: off:8017596066824
+  - food_id: yogurt_greco_0
+    name: Yogurt greco Total 0% (Fage)
+    state: n/a
+    grams: 250
+    values:
+      kcal: 135
+      protein: 25.8
+      carbs: 7.5
+      fat: 0.0
+      fiber: null
+      sugar: 7.5
+      sodium_mg: 100
+    source: off:5201054017616

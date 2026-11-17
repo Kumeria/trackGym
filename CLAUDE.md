@@ -83,6 +83,10 @@ python3 -m unittest discover -s scripts/tests                  # test
   Se OFF non ha i dati completi, lo script non salva: chiedi l'etichetta.
   Mostra all'utente nome e valori trovati: i dati OFF sono crowdsourced, conferma che corrispondano al prodotto.
   Se `world.openfoodfacts.org` non è raggiungibile, procedi solo con etichette/inserimenti manuali.
+- **Senza etichetta né barcode** (l'utente non ce l'ha): non usare valori a memoria. Cerca su
+  OFF un prodotto reale, diffuso in Italia, dello stesso tipo e salvalo con
+  `off.py <barcode> --save --note "rappresentativo: ..."`. Dillo all'utente indicando marca e
+  valori, e proponigli di sostituirlo con l'etichetta vera quando ce l'ha.
 - **Correzioni** al catalogo: `food add ... --force`. I giorni già registrati non cambiano;
   se l'utente vuole correggere un giorno passato, `remove` + `add` su quella data.
 
