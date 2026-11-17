@@ -2,7 +2,7 @@
 timezone: Europe/Rome
 
 targets:
-  kcal: null
+  kcal: auto         # auto = proteine×4 + carboidrati×4 + grassi×9 (calcolato da track.py)
   protein: 180       # g
   carbs: 500         # g
   fat: 72            # g

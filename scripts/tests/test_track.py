@@ -88,6 +88,12 @@ class TestCompute(unittest.TestCase):
         self.assertEqual(rem["protein"], 90.4)
         self.assertIsNone(rem["carbs"])
 
+    def test_kcal_target_auto(self):
+        prof = {"targets": {"kcal": "auto", "protein": 180, "carbs": 500, "fat": 72}}
+        self.assertEqual(track.targets(prof)["kcal"], 3368)
+        self.assertIsNone(track.targets({"targets": {"kcal": "auto", "protein": 180}})["kcal"])
+        self.assertEqual(track.targets({"targets": {"kcal": 2500}})["kcal"], 2500)
+
     def test_suggest_meal(self):
         self.assertEqual(track.suggest_meal(dt.time(8, 0)), "colazione")
         self.assertEqual(track.suggest_meal(dt.time(13, 0)), "pranzo")

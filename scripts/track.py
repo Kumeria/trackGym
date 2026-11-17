@@ -190,9 +190,21 @@ def tracked_nutrients(profile: dict) -> list[str]:
     return CORE + [OPTIONAL[k] for k in OPTIONAL if track.get(k)]
 
 
+KCAL_PER_G = {"protein": 4, "carbs": 4, "fat": 9}
+
+
+def kcal_from_macros(t: dict) -> float | None:
+    if any(t.get(m) is None for m in KCAL_PER_G):
+        return None
+    return r(sum(t[m] * k for m, k in KCAL_PER_G.items()), "kcal")
+
+
 def targets(profile: dict) -> dict:
     t = profile.get("targets") or {}
-    return {n: t.get(n) for n in NUTRIENTS}
+    out = {n: t.get(n) for n in NUTRIENTS}
+    if t.get("kcal") == "auto":
+        out["kcal"] = kcal_from_macros(t)
+    return out
 
 
 def remaining(tot: dict, tgt: dict) -> dict:

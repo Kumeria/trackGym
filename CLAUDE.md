@@ -94,6 +94,8 @@ python3 -m unittest discover -s scripts/tests                  # test
 ## Profilo
 
 Target, peso e obiettivo stanno in `profile.yaml`; si modificano solo su indicazione dell'utente.
+`targets.kcal: auto` = kcal calcolate dallo script come proteine×4 + carboidrati×4 + grassi×9.
+Le kcal dei singoli alimenti restano quelle dell'etichetta / OFF.
 Nuova pesata: aggiungi `{date: AAAA-MM-GG, kg: ...}` in `weight_log` e aggiorna `body.weight_kg`.
 Se i target sono `null`, la tabella mostra `n/d` nella colonna target: ricordalo all'utente.
 
