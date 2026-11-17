@@ -24,6 +24,23 @@
     "aliases": [],
     "added": "2026-11-17"
   },
+  "banana": {
+    "name": "Banana (USDA: Bananas, raw)",
+    "state": "crudo",
+    "source": "usda:173944",
+    "per100g": {
+      "kcal": 89.0,
+      "protein": 1.09,
+      "carbs": 22.8,
+      "fat": 0.33,
+      "fiber": 2.6,
+      "sugar": null,
+      "sodium_mg": 1.0
+    },
+    "aliases": [],
+    "added": "2026-11-17",
+    "note": "polpa senza buccia"
+  },
   "crema_arachidi_100": {
     "name": "Crema 100% Arachidi (Conad)",
     "state": "n/a",

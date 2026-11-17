@@ -417,8 +417,8 @@ def food_cmd(args, profile) -> str:
     if args.fcmd == "add":
         if args.id in foods and not args.force:
             raise TrackError(f"'{args.id}' esiste già. Usa --force per sovrascrivere.")
-        if args.source not in ("label", "manual") and not args.source.startswith("off:"):
-            raise TrackError("--source deve essere label | manual | off:<barcode>.")
+        if args.source not in ("label", "manual") and not args.source.startswith(("off:", "usda:")):
+            raise TrackError("--source deve essere label | manual | off:<barcode> | usda:<fdcId>.")
         per100 = {"kcal": args.kcal, "protein": args.protein, "carbs": args.carbs,
                   "fat": args.fat, "fiber": args.fiber, "sugar": args.sugar,
                   "sodium_mg": args.sodium_mg}

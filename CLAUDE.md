@@ -9,7 +9,7 @@ committare e pushare. Rispondi sempre in italiano.
 
 - `profile.yaml` — target giornalieri, nutrienti extra da tracciare, peso e obiettivo, fuso orario.
 - `foods/foods.json` — catalogo, valori **per 100 g**, con `state` (crudo | cotto | n/a) e
-  `source` (label | off:<barcode> | manual).
+  `source` (label | off:<barcode> | usda:<fdcId> | manual).
 - `log/AAAA/MM/AAAA-MM-GG.yaml` — un file per giorno, pasti colazione/pranzo/cena/snack.
   Ogni voce ha `food_id`, `grams` e lo snapshot `values`: modificare il catalogo NON cambia i giorni passati.
 - `recipes/<id>.yaml` — piatti ricorrenti (vedi `recipes/README.md`).
@@ -87,6 +87,10 @@ python3 -m unittest discover -s scripts/tests                  # test
   OFF un prodotto reale, diffuso in Italia, dello stesso tipo e salvalo con
   `off.py <barcode> --save --note "rappresentativo: ..."`. Dillo all'utente indicando marca e
   valori, e proponigli di sostituirlo con l'etichetta vera quando ce l'ha.
+- **Alimenti freschi senza barcode** (frutta, verdura): USDA FoodData Central, dataset
+  SR Legacy o Foundation, voce "raw" per il crudo. Ricerca:
+  `curl -G https://api.nal.usda.gov/fdc/v1/foods/search --data-urlencode "query=..." -d dataType="SR Legacy" -d api_key=DEMO_KEY`
+  (DEMO_KEY ha un limite basso di richieste). Poi `food add --source usda:<fdcId>` con i valori ricevuti.
 - **Correzioni** al catalogo: `food add ... --force`. I giorni già registrati non cambiano;
   se l'utente vuole correggere un giorno passato, `remove` + `add` su quella data.
 
