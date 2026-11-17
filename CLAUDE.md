@@ -86,6 +86,24 @@ python3 -m unittest discover -s scripts/tests                  # test
 - **Correzioni** al catalogo: `food add ... --force`. I giorni già registrati non cambiano;
   se l'utente vuole correggere un giorno passato, `remove` + `add` su quella data.
 
+## Immagini
+
+L'utente può mandare foto. Come trattarle:
+
+- **Etichetta nutrizionale** → leggi i valori per 100 g, ripetili all'utente per conferma,
+  poi `food add --source label`. Solo valori per porzione → chiedi quelli per 100 g
+  (o il peso della porzione), non fare proporzioni a mente. Parti illeggibili → chiedi, non indovinare.
+- **Codice a barre** → leggi le cifre sotto le barre e usa `off.py`. Se non sono leggibili
+  con certezza, chiedi all'utente di scriverle.
+- **Fronte confezione** → identifica prodotto, marca e stato (crudo/cotto); se non è già
+  nel catalogo servono anche tabella nutrizionale o barcode.
+- **Display della bilancia** → leggi i grammi; se l'unità o la tara non sono chiare, chiedi.
+- **Foto del piatto** → identifica gli alimenti, ma **non stimare mai i grammi a occhio**:
+  chiedi i pesi, o se corrisponde a una porzione/ricetta già registrata. Per condimenti
+  invisibili (olio, burro, sughi) chiedi esplicitamente se ci sono e quanti grammi.
+
+Flusso consigliato: la prima volta etichetta o barcode → catalogo; poi basta il peso.
+
 ## Consultare il passato
 
 - "Com'è andata la settimana scorsa?" → `range --week last`, poi commenta i numeri stampati
