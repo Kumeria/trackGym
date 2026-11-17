@@ -17,9 +17,10 @@ track:
   sodium: false
 
 body:
-  weight_kg: null          # peso attuale
-  goal_weight_kg: null     # peso obiettivo
-  goal: null               # es. "dimagrimento", "ricomposizione", "massa"
+  weight_kg: 93            # peso attuale
+  goal_weight_kg: 93       # peso obiettivo
+  goal: mantenimento
 
 # Storico pesate (aggiungere in coda): - {date: AAAA-MM-GG, kg: 00.0}
-weight_log: []
+weight_log:
+  - {date: 2026-11-17, kg: 93}

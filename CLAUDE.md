@@ -37,11 +37,13 @@ committare e pushare. Rispondi sempre in italiano.
 6. **Dopo ogni modifica ai dati** (log, catalogo, profilo, ricette, report): commit e push SUBITO.
    Il container è effimero: senza push i dati sono persi.
    ```bash
-   git add -A && git commit -m "<messaggio>" && git push -u origin HEAD
+   git add -A && git commit -m "<messaggio>" && git push origin HEAD:main
    ```
    Messaggi: `log: 2026-11-17 pranzo +pasta 100g, +pollo 200g`, `foods: +yogurt_greco (label)`,
    `profile: target aggiornati`, `report: 2026-W46`. Se il push fallisce, riprova e avvisa l'utente.
-7. **Inizio sessione:** `git pull --ff-only` prima di toccare i dati.
+   I dati vivono su `main`: l'utente ha autorizzato il push diretto su `main` per ogni
+   modifica ai dati, anche se la sessione lavora su un branch `claude/...`.
+7. **Inizio sessione:** `git fetch origin main && git merge --ff-only origin/main` prima di toccare i dati.
 
 ## Comandi
 
