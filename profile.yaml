@@ -3,9 +3,9 @@ timezone: Europe/Rome
 
 targets:
   kcal: null
-  protein: null      # g
-  carbs: null        # g
-  fat: null          # g
+  protein: 180       # g
+  carbs: 500         # g
+  fat: 72            # g
   fiber: null        # g
   sugar: null        # g
   sodium_mg: null    # mg
