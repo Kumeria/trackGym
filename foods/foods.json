@@ -1,0 +1,11 @@
+{
+  "_schema": {
+    "id": "snake_case, include lo stato se ambiguo (es. riso_basmati_crudo)",
+    "name": "nome leggibile, con marca se da etichetta/OFF",
+    "state": "crudo | cotto | n/a (n/a = pronto al consumo, es. yogurt, pane)",
+    "source": "label | off:<barcode> | manual",
+    "per100g": "kcal, protein, carbs, fat, fiber, sugar (g), sodium_mg (mg); null = dato assente",
+    "aliases": "nomi alternativi per la ricerca",
+    "added": "data di inserimento"
+  }
+}

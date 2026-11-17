@@ -1,0 +1,25 @@
+# Profilo e target giornalieri. null = non ancora impostato.
+timezone: Europe/Rome
+
+targets:
+  kcal: null
+  protein: null      # g
+  carbs: null        # g
+  fat: null          # g
+  fiber: null        # g
+  sugar: null        # g
+  sodium_mg: null    # mg
+
+# Nutrienti extra da mostrare nei riepiloghi (kcal e macro sempre mostrati)
+track:
+  fiber: false
+  sugar: false
+  sodium: false
+
+body:
+  weight_kg: null          # peso attuale
+  goal_weight_kg: null     # peso obiettivo
+  goal: null               # es. "dimagrimento", "ricomposizione", "massa"
+
+# Storico pesate (aggiungere in coda): - {date: AAAA-MM-GG, kg: 00.0}
+weight_log: []
