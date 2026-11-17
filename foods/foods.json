@@ -7,5 +7,37 @@
     "per100g": "kcal, protein, carbs, fat, fiber, sugar (g), sodium_mg (mg); null = dato assente",
     "aliases": "nomi alternativi per la ricerca",
     "added": "data di inserimento"
+  },
+  "avena_istantanea_prozis_crudo": {
+    "name": "Instant Oats Classic Flavor (Prozis)",
+    "state": "crudo",
+    "source": "off:5607780010080",
+    "per100g": {
+      "kcal": 391.0,
+      "protein": 12.0,
+      "carbs": 68.0,
+      "fat": 7.0,
+      "fiber": 4.0,
+      "sugar": 1.0,
+      "sodium_mg": 0
+    },
+    "aliases": [],
+    "added": "2026-11-17"
+  },
+  "true_whey_cioccolato_gymbeam": {
+    "name": "True Whey Cioccolato (GymBeam)",
+    "state": "n/a",
+    "source": "off:8588006485622",
+    "per100g": {
+      "kcal": 392.766093052899,
+      "protein": 73.3333333333333,
+      "carbs": 12.3333333333333,
+      "fat": 5.66666666666667,
+      "fiber": 3.33333333333333,
+      "sugar": 5.66666666666667,
+      "sodium_mg": 0
+    },
+    "aliases": [],
+    "added": "2026-11-17"
   }
 }
