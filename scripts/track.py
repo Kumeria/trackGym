@@ -501,6 +501,8 @@ def build_parser() -> argparse.ArgumentParser:
     fl.add_argument("--foods", nargs="+", required=True)
     fl.add_argument("--nutrients", nargs="+", required=True,
                     choices=["kcal", "protein", "carbs", "fat"])
+    fl.add_argument("--with", dest="fixed", nargs="+", default=[], metavar="FOOD:GRAMMI",
+                    help="alimenti con quantità già decisa, conteggiati prima del calcolo")
 
     f = sub.add_parser("food")
     fs = f.add_subparsers(dest="fcmd", required=True)
@@ -572,15 +574,23 @@ def main(argv=None) -> int:
         elif args.cmd == "fill":
             date = parse_date(args.date)
             foods = load_foods()
-            tot = total(day_entries(load_day(date)))
-            rem = remaining(tot, targets(profile))
+            fixed = []
+            for spec in args.fixed:
+                fid, _, g = spec.rpartition(":")
+                if not fid:
+                    raise TrackError(f"--with vuole FOOD:GRAMMI, ricevuto '{spec}'.")
+                fixed.append(make_entry(fid, get_food(foods, fid), float(g)))
+            base = day_entries(load_day(date)) + fixed
+            rem = remaining(total(base), targets(profile))
             grams = solve_fill(foods, args.foods, args.nutrients, rem)
-            entries = [make_entry(f, foods[f], g) for f, g in grams.items() if g > 0]
+            entries = fixed + [make_entry(f, foods[f], g) for f, g in grams.items() if g > 0]
             print(f"Per chiudere {', '.join(LABELS[n] for n in args.nutrients)} del {date}:")
+            for e in fixed:
+                print(f"  {e['name']} [{e['state']}]: {e['grams']} g (fissato)")
             for f, g in grams.items():
                 print(f"  {foods[f]['name']} [{foods[f].get('state')}]: {g} g")
-            print(f"  apporto: {fmt_values(total(entries), tracked_nutrients(profile))}")
             after = dict(total(day_entries(load_day(date)) + entries))
+            print(f"  apporto pasto: {fmt_values(total(entries), tracked_nutrients(profile))}")
             print("\nGiornata dopo questo pasto:\n" + table_vs_targets(after, profile))
         elif args.cmd == "food":
             print(food_cmd(args, profile))

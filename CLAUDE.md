@@ -60,6 +60,7 @@ python3 scripts/track.py summary [--date ...]
 python3 scripts/track.py range --week last [--save]            # settimana scorsa (lun–dom)
 python3 scripts/track.py range --from 2026-11-01 --to 2026-11-15
 python3 scripts/track.py fill --foods pasta_semola_crudo olio_evo --nutrients carbs fat   # grammi per chiudere i macro
+python3 scripts/track.py fill --with pollo_petto_crudo:150 --foods pasta_semola_crudo olio_evo --nutrients kcal fat  # con quantità fissate
 python3 -m unittest discover -s scripts/tests                  # test
 ```
 
