@@ -172,6 +172,18 @@ class TestLog(Base):
         self.assertEqual(track.load_foods()["x"]["per100g"]["sodium_mg"], 500)
 
 
+class TestFill(unittest.TestCase):
+    def test_two_by_two(self):
+        foods = {"p": {"per100g": {"carbs": 71, "fat": 2}}, "o": {"per100g": {"carbs": 0, "fat": 92}}}
+        g = track.solve_fill(foods, ["p", "o"], ["carbs", "fat"], {"carbs": 71, "fat": 94})
+        self.assertEqual(g, {"p": 100, "o": 100})
+
+    def test_negative_rejected(self):
+        foods = {"p": {"per100g": {"carbs": 71, "fat": 2}}, "o": {"per100g": {"carbs": 0, "fat": 92}}}
+        with self.assertRaises(track.TrackError):
+            track.solve_fill(foods, ["p", "o"], ["carbs", "fat"], {"carbs": 710, "fat": 5})
+
+
 class TestOff(unittest.TestCase):
     def test_map_full(self):
         per, w = off.map_nutriments({

@@ -317,6 +317,34 @@ def week_bounds(which: str) -> tuple[dt.date, dt.date]:
     return monday, monday + dt.timedelta(days=6)
 
 
+def solve_fill(foods: dict, fids: list[str], nutrients: list[str], rem: dict) -> dict:
+    """Grams of each food so that the listed nutrients exactly match `rem`.
+    Square linear system (one food per nutrient), Gaussian elimination."""
+    if len(fids) != len(nutrients):
+        raise TrackError("Servono tanti alimenti quanti nutrienti da coprire.")
+    for n in nutrients:
+        if rem.get(n) is None:
+            raise TrackError(f"Nessun target impostato per {LABELS[n]}.")
+    a = [[(get_food(foods, f)["per100g"].get(n) or 0) / 100.0 for f in fids] + [rem[n]]
+         for n in nutrients]
+    k = len(fids)
+    for c in range(k):
+        piv = max(range(c, k), key=lambda i: abs(a[i][c]))
+        if abs(a[piv][c]) < 1e-9:
+            raise TrackError("Combinazione non risolvibile: alimenti troppo simili per questi nutrienti.")
+        a[c], a[piv] = a[piv], a[c]
+        for i in range(k):
+            if i != c:
+                f = a[i][c] / a[c][c]
+                a[i] = [x - f * y for x, y in zip(a[i], a[c])]
+    grams = {fids[i]: a[i][k] / a[i][i] for i in range(k)}
+    neg = [f for f, g in grams.items() if g < 0]
+    if neg:
+        raise TrackError("Impossibile senza superare il target: con gli altri alimenti " +
+                         ", ".join(neg) + " dovrebbe essere negativo.")
+    return {f: round(g) for f, g in grams.items()}
+
+
 # ---------------------------------------------------------------- formatting
 
 def fmt(v, n) -> str:
@@ -468,6 +496,12 @@ def build_parser() -> argparse.ArgumentParser:
     rg.add_argument("--week", choices=["this", "last"])
     rg.add_argument("--save", action="store_true", help="scrive il report in reports/")
 
+    fl = sub.add_parser("fill", help="grammi per chiudere i nutrienti che restano")
+    fl.add_argument("--date")
+    fl.add_argument("--foods", nargs="+", required=True)
+    fl.add_argument("--nutrients", nargs="+", required=True,
+                    choices=["kcal", "protein", "carbs", "fat"])
+
     f = sub.add_parser("food")
     fs = f.add_subparsers(dest="fcmd", required=True)
     fs.add_parser("list")
@@ -535,6 +569,19 @@ def main(argv=None) -> int:
                 p.parent.mkdir(parents=True, exist_ok=True)
                 p.write_text(text + "\n")
                 print(f"\nSalvato in {p.relative_to(root())}")
+        elif args.cmd == "fill":
+            date = parse_date(args.date)
+            foods = load_foods()
+            tot = total(day_entries(load_day(date)))
+            rem = remaining(tot, targets(profile))
+            grams = solve_fill(foods, args.foods, args.nutrients, rem)
+            entries = [make_entry(f, foods[f], g) for f, g in grams.items() if g > 0]
+            print(f"Per chiudere {', '.join(LABELS[n] for n in args.nutrients)} del {date}:")
+            for f, g in grams.items():
+                print(f"  {foods[f]['name']} [{foods[f].get('state')}]: {g} g")
+            print(f"  apporto: {fmt_values(total(entries), tracked_nutrients(profile))}")
+            after = dict(total(day_entries(load_day(date)) + entries))
+            print("\nGiornata dopo questo pasto:\n" + table_vs_targets(after, profile))
         elif args.cmd == "food":
             print(food_cmd(args, profile))
     except (TrackError, ValueError) as e:
